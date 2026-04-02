@@ -6,6 +6,8 @@ import heartOutline from '../../assets/icons/heart-outline.svg';
 import heartFilled from '../../assets/icons/heart-filled.svg';
 import styles from './HouseCard.module.css';
 
+
+
 interface Props {
   house: House;
   isFavorited: boolean;

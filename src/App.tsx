@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { HouseListPage } from './pages/HouseListPage';
 import { HouseDetailPage } from './pages/HouseDetailPage';
 import { FavoritesMapPage } from './pages/FavoritesMapPage';
+import { RouteErrorFallback } from './components/ErrorBoundary/ErrorBoundary';
 
 function ListLayout() {
   const location = useLocation();
@@ -51,6 +52,7 @@ const router = createBrowserRouter(
   [
     {
       element: <ListLayout />,
+      errorElement: <RouteErrorFallback />,
       children: [
         { index: true, path: '/', element: null },
         { path: '/house/:id', element: <HouseDetailPage /> },
