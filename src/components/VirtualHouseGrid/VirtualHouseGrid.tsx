@@ -146,7 +146,7 @@ export function VirtualHouseGrid({
             display: 'grid',
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
             gap: `${gap}px`,
-            padding: '0 2.5rem',
+            padding: '0 2.5rem 2.5rem',
             maxWidth: 1440,
             margin: '0 auto',
             width: '100%',
