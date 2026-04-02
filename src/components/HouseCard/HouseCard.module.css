@@ -1,11 +1,7 @@
 .card {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  box-shadow: var(--neu-raised);
-  overflow: hidden;
+  composes: card from '../shared/CardShell.module.css';
   cursor: pointer;
   transition: box-shadow 0.15s ease-out, transform 0.15s ease-out;
-  border: 1px solid var(--border-card);
 }
 
 .card:hover {
@@ -14,11 +10,7 @@
 }
 
 .imageWrapper {
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  margin: 0.75rem 0.75rem 0;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--image-inset);
+  composes: imageWrapper from '../shared/CardShell.module.css';
   position: relative;
   opacity: 1 !important;
 }
@@ -36,10 +28,7 @@
 }
 
 .content {
-  padding: 1.15rem 1.25rem 1.35rem;
-  display: flex;
-  flex-direction: column;
-  height: 130px;
+  composes: content from '../shared/CardShell.module.css';
 }
 
 .price {

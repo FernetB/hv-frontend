@@ -37,15 +37,20 @@ function ListLayout() {
   );
 }
 
-const router = createBrowserRouter([
-  {
-    element: <ListLayout />,
-    children: [
-      { index: true, path: '/' },
-      { path: '/house/:id', element: <HouseDetailPage /> },
-    ],
-  },
-]);
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const router = createBrowserRouter(
+  [
+    {
+      element: <ListLayout />,
+      children: [
+        { index: true, path: '/' },
+        { path: '/house/:id', element: <HouseDetailPage /> },
+      ],
+    },
+  ],
+  { basename }
+);
 
 function App() {
   return <RouterProvider router={router} />;

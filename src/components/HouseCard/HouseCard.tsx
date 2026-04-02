@@ -6,7 +6,6 @@ import styles from './HouseCard.module.css';
 
 interface Props {
   house: House;
-  index: number;
   isOpen: boolean;
 }
 
@@ -19,7 +18,7 @@ const PLACEHOLDER =
 // Survives unmount/remount — cards only animate once per session
 const animatedIds = new Set<number>();
 
-export const HouseCard = memo(function HouseCard({ house, index, isOpen }: Props) {
+export const HouseCard = memo(function HouseCard({ house, isOpen }: Props) {
   const [imgSrc, setImgSrc] = useState(house.photoURL);
   const seen = animatedIds.has(house.id);
 

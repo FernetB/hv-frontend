@@ -1,15 +1,9 @@
 .skeleton {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  box-shadow: var(--neu-raised);
-  overflow: hidden;
-  border: 1px solid var(--border-card);
+  composes: card from '../shared/CardShell.module.css';
 }
 
 .imagePlaceholder {
-  aspect-ratio: 16 / 9;
-  margin: 0.75rem 0.75rem 0;
-  border-radius: var(--radius-sm);
+  composes: imageWrapper from '../shared/CardShell.module.css';
   background: linear-gradient(
     90deg,
     var(--bg) 0%,
@@ -21,9 +15,7 @@
 }
 
 .content {
-  padding: 1.15rem 1.25rem 1.35rem;
-  display: flex;
-  flex-direction: column;
+  composes: content from '../shared/CardShell.module.css';
   gap: 0.65rem;
 }
 

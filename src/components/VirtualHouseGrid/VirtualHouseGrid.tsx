@@ -121,11 +121,10 @@ export function VirtualHouseGrid({
                   gap: `${gap}px`,
                 }}
               >
-                {rowHouses.map((house, i) => (
+                {rowHouses.map((house) => (
                   <HouseCard
                     key={house.id}
                     house={house}
-                    index={startIndex + i}
                     isOpen={String(house.id) === openId}
                   />
                 ))}
