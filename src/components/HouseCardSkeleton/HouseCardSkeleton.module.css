@@ -1,0 +1,64 @@
+.skeleton {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--neu-raised);
+  overflow: hidden;
+  border: 1px solid var(--border-card);
+}
+
+.imagePlaceholder {
+  aspect-ratio: 16 / 9;
+  margin: 0.75rem 0.75rem 0;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--bg) 0%,
+    var(--bg-shimmer) 50%,
+    var(--bg) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+.content {
+  padding: 1.15rem 1.25rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.line {
+  border-radius: var(--radius-xs);
+  background: linear-gradient(
+    90deg,
+    var(--bg) 0%,
+    var(--bg-shimmer) 50%,
+    var(--bg) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+.price {
+  height: 1.4rem;
+  width: 35%;
+}
+
+.address {
+  height: 0.92rem;
+  width: 75%;
+}
+
+.homeowner {
+  height: 0.82rem;
+  width: 45%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

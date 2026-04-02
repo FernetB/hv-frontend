@@ -1,0 +1,67 @@
+.header {
+  text-align: center;
+  padding: 2rem 2rem 2.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.top {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.themeToggle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg);
+  box-shadow: var(--neu-btn);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.25s ease;
+  font-size: 1.2rem;
+}
+
+.themeToggle:hover {
+  box-shadow: var(--neu-btn-hover);
+}
+
+.themeToggle:active {
+  box-shadow: var(--neu-btn-active);
+}
+
+.themeIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.logoContainer {
+  display: inline-block;
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  box-shadow: var(--neu-concave);
+  margin-bottom: 0.25rem;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.75px;
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
