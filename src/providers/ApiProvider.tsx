@@ -3,7 +3,7 @@ import axios, { type AxiosInstance } from 'axios';
 
 const ApiContext = createContext<AxiosInstance | null>(null);
 
-const API_BASE_URL = 'https://staging.homevision.co/api_project';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export function ApiProvider({ children }: { children: ReactNode }) {
   const apiClient = useMemo(

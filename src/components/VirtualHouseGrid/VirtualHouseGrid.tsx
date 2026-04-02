@@ -1,0 +1,168 @@
+import { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useWindowVirtualizer } from '@tanstack/react-virtual';
+import { motion } from 'framer-motion';
+import { HouseCard } from '../HouseCard/HouseCard';
+import { HouseCardSkeleton } from '../HouseCardSkeleton/HouseCardSkeleton';
+import type { House } from '../../hooks/api/types';
+import styles from './VirtualHouseGrid.module.css';
+
+const MIN_COL_WIDTH = 300;
+
+function calcLayout(containerWidth: number) {
+  const isMobile = containerWidth <= 450;
+  const g = isMobile ? 28 : 36;
+  const cols = isMobile
+    ? 1
+    : Math.max(1, Math.floor((containerWidth + g) / (MIN_COL_WIDTH + g)));
+  return { columns: cols, gap: g };
+}
+
+function getInitialLayout() {
+  const w = window.innerWidth;
+  const isSmall = w <= 680;
+  const padding = isSmall ? 40 : 80;
+  return calcLayout(Math.min(w, 1440) - padding);
+}
+
+interface Props {
+  houses: House[];
+  fetchNextPage: () => void;
+  isFetchingNextPage: boolean;
+  hasNextPage: boolean;
+}
+
+export function VirtualHouseGrid({
+  houses,
+  fetchNextPage,
+  isFetchingNextPage,
+  hasNextPage,
+}: Props) {
+  const location = useLocation();
+  const openId = location.pathname.startsWith('/house/')
+    ? location.pathname.split('/')[2]
+    : null;
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const initial = useRef(getInitialLayout());
+  const [columns, setColumns] = useState(initial.current.columns);
+  const [gap, setGap] = useState(initial.current.gap);
+  const [scrollMargin, setScrollMargin] = useState(0);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const update = () => {
+      const { columns: cols, gap: g } = calcLayout(el.clientWidth);
+      setColumns(cols);
+      setGap(g);
+      setScrollMargin(el.offsetTop);
+    };
+
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const rowCount = Math.ceil(houses.length / columns);
+
+  const virtualizer = useWindowVirtualizer({
+    count: rowCount,
+    estimateSize: () => 360,
+    overscan: 5,
+    gap,
+    scrollMargin,
+  });
+
+  const virtualRows = virtualizer.getVirtualItems();
+  const lastRow = virtualRows[virtualRows.length - 1];
+
+  // Infinite scroll: fetch when near the last row
+  useEffect(() => {
+    if (!lastRow) return;
+    if (
+      lastRow.index >= rowCount - 2 &&
+      hasNextPage &&
+      !isFetchingNextPage
+    ) {
+      fetchNextPage();
+    }
+  }, [lastRow?.index, rowCount, hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  return (
+    <>
+      <div ref={containerRef} className={styles.container}>
+        <div
+          style={{
+            height: virtualizer.getTotalSize(),
+            position: 'relative',
+            width: '100%',
+          }}
+        >
+          {virtualRows.map((virtualRow) => {
+            const startIndex = virtualRow.index * columns;
+            const rowHouses = houses.slice(startIndex, startIndex + columns);
+
+            return (
+              <div
+                key={virtualRow.index}
+                ref={virtualizer.measureElement}
+                data-index={virtualRow.index}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  transform: `translateY(${virtualRow.start - scrollMargin}px)`,
+                  display: 'grid',
+                  gridTemplateColumns: `repeat(${columns}, 1fr)`,
+                  gap: `${gap}px`,
+                }}
+              >
+                {rowHouses.map((house, i) => (
+                  <HouseCard
+                    key={house.id}
+                    house={house}
+                    index={startIndex + i}
+                    isOpen={String(house.id) === openId}
+                  />
+                ))}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {isFetchingNextPage && (
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${columns}, 1fr)`,
+            gap: `${gap}px`,
+            padding: '0 2.5rem',
+            maxWidth: 1440,
+            margin: '0 auto',
+            width: '100%',
+          }}
+        >
+          {Array.from({ length: columns }).map((_, i) => (
+            <HouseCardSkeleton key={`skeleton-${i}`} />
+          ))}
+        </div>
+      )}
+
+      {!hasNextPage && !isFetchingNextPage && houses.length > 0 && (
+        <motion.p
+          className={styles.endMessage}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          You've seen all listings
+        </motion.p>
+      )}
+    </>
+  );
+}

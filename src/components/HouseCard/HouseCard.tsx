@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import type { House } from '../../hooks/api/types';
@@ -7,6 +7,7 @@ import styles from './HouseCard.module.css';
 interface Props {
   house: House;
   index: number;
+  isOpen: boolean;
 }
 
 const PLACEHOLDER =
@@ -18,43 +19,39 @@ const PLACEHOLDER =
 // Survives unmount/remount — cards only animate once per session
 const animatedIds = new Set<number>();
 
-export function HouseCard({ house, index }: Props) {
+export const HouseCard = memo(function HouseCard({ house, index, isOpen }: Props) {
   const [imgSrc, setImgSrc] = useState(house.photoURL);
   const seen = animatedIds.has(house.id);
 
   return (
     <motion.article
       className={styles.card}
-      initial={seen ? false : { opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.4,
-        delay: seen ? 0 : (index % 12) * 0.06,
-        ease: [0.25, 0.46, 0.45, 0.94],
-      }}
+      initial={seen ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: seen ? 0 : 0.3 }}
       onAnimationComplete={() => animatedIds.add(house.id)}
       whileHover={{
         y: -5,
         transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] },
       }}
-      layout
     >
       <Link
         to={`/house/${house.id}`}
         state={{ house }}
-        viewTransition
         className={styles.link}
       >
-        <div className={styles.imageWrapper}>
+        <motion.div
+          className={styles.imageWrapper}
+          layoutId={isOpen ? undefined : `house-image-${house.id}`}
+        >
           <img
             src={imgSrc}
             alt={`Photo of ${house.address}`}
             loading="lazy"
             className={styles.image}
-            style={{ viewTransitionName: `house-image-${house.id}` }}
             onError={() => setImgSrc(PLACEHOLDER)}
           />
-        </div>
+        </motion.div>
         <div className={styles.content}>
           <p className={styles.price}>${house.price.toLocaleString()}</p>
           <h3 className={styles.address}>{house.address}</h3>
@@ -63,4 +60,4 @@ export function HouseCard({ house, index }: Props) {
       </Link>
     </motion.article>
   );
-}
+});
