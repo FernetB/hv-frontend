@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useWindowVirtualizer } from '@tanstack/react-virtual';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { motion } from 'framer-motion';
 import { HouseCard } from '../HouseCard/HouseCard';
 import { HouseCardSkeleton } from '../HouseCardSkeleton/HouseCardSkeleton';
+import { useFavorites } from '../../providers/FavoritesProvider';
 import type { House } from '../../hooks/api/types';
 import styles from './VirtualHouseGrid.module.css';
 
@@ -38,26 +38,20 @@ export function VirtualHouseGrid({
   isFetchingNextPage,
   hasNextPage,
 }: Props) {
-  const location = useLocation();
-  const openId = location.pathname.startsWith('/house/')
-    ? location.pathname.split('/')[2]
-    : null;
-
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const gridRef = useRef<HTMLDivElement>(null);
   const initial = useRef(getInitialLayout());
   const [columns, setColumns] = useState(initial.current.columns);
   const [gap, setGap] = useState(initial.current.gap);
-  const [scrollMargin, setScrollMargin] = useState(0);
 
   useEffect(() => {
-    const el = containerRef.current;
+    const el = gridRef.current;
     if (!el) return;
 
     const update = () => {
       const { columns: cols, gap: g } = calcLayout(el.clientWidth);
       setColumns(cols);
       setGap(g);
-      setScrollMargin(el.offsetTop);
     };
 
     update();
@@ -68,12 +62,23 @@ export function VirtualHouseGrid({
 
   const rowCount = Math.ceil(houses.length / columns);
 
-  const virtualizer = useWindowVirtualizer({
+  // Find the scroll container — the nearest ancestor with overflow: auto
+  const getScrollElement = useCallback(() => {
+    let el = gridRef.current?.parentElement;
+    while (el) {
+      const overflow = getComputedStyle(el).overflowY;
+      if (overflow === 'auto' || overflow === 'scroll') return el;
+      el = el.parentElement;
+    }
+    return null;
+  }, []);
+
+  const virtualizer = useVirtualizer({
     count: rowCount,
+    getScrollElement,
     estimateSize: () => 360,
     overscan: 5,
     gap,
-    scrollMargin,
   });
 
   const virtualRows = virtualizer.getVirtualItems();
@@ -93,7 +98,7 @@ export function VirtualHouseGrid({
 
   return (
     <>
-      <div ref={containerRef} className={styles.container}>
+      <div ref={gridRef} className={styles.container}>
         <div
           style={{
             height: virtualizer.getTotalSize(),
@@ -115,7 +120,7 @@ export function VirtualHouseGrid({
                   top: 0,
                   left: 0,
                   width: '100%',
-                  transform: `translateY(${virtualRow.start - scrollMargin}px)`,
+                  transform: `translateY(${virtualRow.start}px)`,
                   display: 'grid',
                   gridTemplateColumns: `repeat(${columns}, 1fr)`,
                   gap: `${gap}px`,
@@ -125,7 +130,8 @@ export function VirtualHouseGrid({
                   <HouseCard
                     key={house.id}
                     house={house}
-                    isOpen={String(house.id) === openId}
+                    isFavorited={isFavorite(house.id)}
+                    onToggleFavorite={() => toggleFavorite(house.id)}
                   />
                 ))}
               </div>

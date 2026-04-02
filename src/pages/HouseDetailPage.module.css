@@ -10,6 +10,13 @@
   position: relative;
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
 .backButton {
   display: flex;
   align-items: center;
@@ -25,16 +32,49 @@
   cursor: pointer;
   transition: box-shadow 0.25s ease, color 0.2s ease;
   text-decoration: none;
-  position: absolute;
-  top: 1rem;
-  left: -64px;
 }
 
-@media (max-width: 860px) {
-  .backButton {
-    position: static;
-    margin-bottom: 1rem;
-  }
+.favButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--bg);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  box-shadow: var(--neu-btn);
+  cursor: pointer;
+  transition: box-shadow 0.25s ease, color 0.2s ease;
+  font-family: var(--font);
+}
+
+.favButton:hover {
+  box-shadow: var(--neu-btn-hover);
+}
+
+.favButton:active {
+  box-shadow: var(--neu-btn-active);
+}
+
+.btnIcon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.backButton .btnIcon {
+  filter: brightness(0) saturate(100%) invert(45%) sepia(5%) saturate(500%) hue-rotate(180deg);
+}
+
+.favButton .btnIcon {
+  filter: brightness(0) saturate(100%) invert(60%) sepia(5%) saturate(200%) hue-rotate(180deg);
+}
+
+.favActive .btnIcon {
+  filter: brightness(0) saturate(100%) invert(28%) sepia(93%) saturate(5000%) hue-rotate(345deg) brightness(95%) contrast(95%);
 }
 
 .backButton:hover {
@@ -60,7 +100,6 @@
   margin: 1rem 1rem 0;
   border-radius: var(--radius-sm);
   box-shadow: var(--image-inset);
-  opacity: 1 !important;
 }
 
 .image {

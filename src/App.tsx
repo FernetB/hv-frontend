@@ -4,52 +4,61 @@ import {
   Outlet,
   useLocation,
 } from 'react-router-dom';
-import { LayoutGroup, AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { HouseListPage } from './pages/HouseListPage';
 import { HouseDetailPage } from './pages/HouseDetailPage';
-
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
-}
+import { FavoritesMapPage } from './pages/FavoritesMapPage';
 
 function ListLayout() {
   const location = useLocation();
-  const isDetail = location.pathname.startsWith('/house/');
+  const isOverlay =
+    location.pathname.startsWith('/house/') ||
+    location.pathname === '/favorites';
 
   return (
-    <LayoutGroup>
-      <HouseListPage />
+    <>
+      <div style={{ height: '100vh', overflow: 'auto' }}>
+        <HouseListPage />
+      </div>
+
       <AnimatePresence>
-        {isDetail && (
-          <div key={location.pathname} style={{ position: 'fixed', inset: 0, zIndex: 100, overflow: 'auto' }}>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              style={{ position: 'fixed', inset: 0, background: 'var(--bg)', zIndex: -1 }}
-            />
+        {isOverlay && (
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 100,
+              overflow: 'auto',
+              background: 'var(--bg)',
+            }}
+          >
             <Outlet />
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
-    </LayoutGroup>
+    </>
   );
 }
 
-const basename = import.meta.env.BASE_URL.replace(/\/$/, '');
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || undefined;
 
 const router = createBrowserRouter(
   [
     {
       element: <ListLayout />,
       children: [
-        { index: true, path: '/' },
+        { index: true, path: '/', element: null },
         { path: '/house/:id', element: <HouseDetailPage /> },
+        { path: '/favorites', element: <FavoritesMapPage /> },
       ],
     },
   ],
-  { basename }
+  basename ? { basename } : undefined
 );
 
 function App() {

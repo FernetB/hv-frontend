@@ -32,5 +32,3 @@ export function useGetHouses() {
     staleTime: 5 * 60 * 1000,
   });
 }
-
-export { PER_PAGE };

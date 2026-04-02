@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useFavorites } from '../providers/FavoritesProvider';
 import type { House } from '../hooks/api/types';
+import arrowLeft from '../assets/icons/arrow-left.svg';
+import heartOutline from '../assets/icons/heart-outline.svg';
+import heartFilled from '../assets/icons/heart-filled.svg';
 import styles from './HouseDetailPage.module.css';
 
 const PLACEHOLDER =
@@ -11,10 +15,11 @@ const PLACEHOLDER =
   );
 
 export function HouseDetailPage() {
-  const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const house = location.state?.house as House | undefined;
   const [imgSrc, setImgSrc] = useState(house?.photoURL ?? PLACEHOLDER);
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const favorited = house ? isFavorite(house.id) : false;
 
   if (!house) {
     return (
@@ -22,7 +27,7 @@ export function HouseDetailPage() {
         <div className={styles.notFound}>
           <p>House not found</p>
           <Link to="/" className={styles.backButton}>
-            Go back
+            <img src={arrowLeft} alt="Back" className={styles.btnIcon} /> Go back
           </Link>
         </div>
       </div>
@@ -32,22 +37,35 @@ export function HouseDetailPage() {
   return (
     <div className={styles.page}>
       <div className={styles.container}>
-        <Link to="/" className={styles.backButton}>
-          <motion.span whileTap={{ scale: 0.95 }}>←</motion.span>
-        </Link>
+        <div className={styles.actions}>
+          <Link to="/" className={styles.backButton}>
+            <motion.span whileTap={{ scale: 0.95 }}>
+              <img src={arrowLeft} alt="Back" className={styles.btnIcon} />
+            </motion.span>
+          </Link>
+          <motion.button
+            className={`${styles.favButton} ${favorited ? styles.favActive : ''}`}
+            onClick={() => toggleFavorite(house.id)}
+            whileTap={{ scale: 0.9 }}
+            aria-label={favorited ? 'Remove from favorites' : 'Add to favorites'}
+          >
+            <img
+              src={favorited ? heartFilled : heartOutline}
+              alt=""
+              className={styles.btnIcon}
+            />
+          </motion.button>
+        </div>
 
         <div className={styles.card}>
-          <motion.div
-            className={styles.imageWrapper}
-            layoutId={`house-image-${id}`}
-          >
+          <div className={styles.imageWrapper}>
             <img
               src={imgSrc}
               alt={`Photo of ${house.address}`}
               className={styles.image}
               onError={() => setImgSrc(PLACEHOLDER)}
             />
-          </motion.div>
+          </div>
 
           <div className={styles.details}>
             <motion.p
