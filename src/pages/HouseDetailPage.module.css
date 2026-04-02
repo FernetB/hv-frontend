@@ -4,17 +4,11 @@
   padding: 2rem;
 }
 
-.container {
+/* Desktop: back button sits left of the card */
+.layout {
   max-width: 720px;
   margin: 0 auto;
   position: relative;
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
 }
 
 .backButton {
@@ -26,66 +20,31 @@
   background: var(--bg);
   border: none;
   border-radius: 50%;
-  font-size: 1.1rem;
-  color: var(--text-secondary);
   box-shadow: var(--neu-btn);
   cursor: pointer;
-  transition: box-shadow 0.25s ease, color 0.2s ease;
+  transition: box-shadow 0.25s ease;
   text-decoration: none;
-}
-
-.favButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: var(--bg);
-  border: none;
-  border-radius: 50%;
-  font-size: 1.3rem;
-  color: var(--text-muted);
-  box-shadow: var(--neu-btn);
-  cursor: pointer;
-  transition: box-shadow 0.25s ease, color 0.2s ease;
-  font-family: var(--font);
-}
-
-.favButton:hover {
-  box-shadow: var(--neu-btn-hover);
-}
-
-.favButton:active {
-  box-shadow: var(--neu-btn-active);
-}
-
-.btnIcon {
-  width: 20px;
-  height: 20px;
-  display: block;
-}
-
-.backButton .btnIcon {
-  filter: brightness(0) saturate(100%) invert(45%) sepia(5%) saturate(500%) hue-rotate(180deg);
-}
-
-.favButton .btnIcon {
-  filter: brightness(0) saturate(100%) invert(60%) sepia(5%) saturate(200%) hue-rotate(180deg);
-}
-
-.favActive .btnIcon {
-  filter: brightness(0) saturate(100%) invert(28%) sepia(93%) saturate(5000%) hue-rotate(345deg) brightness(95%) contrast(95%);
+  position: absolute;
+  top: 1rem;
+  left: -64px;
 }
 
 .backButton:hover {
   box-shadow: var(--neu-btn-hover);
-  color: var(--accent);
 }
 
 .backButton:active {
   box-shadow: var(--neu-btn-active);
 }
 
+@media (max-width: 860px) {
+  .backButton {
+    position: static;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Card */
 .card {
   background: var(--bg-card);
   border-radius: var(--radius);
@@ -112,12 +71,62 @@
   padding: 2rem 2rem 2.5rem;
 }
 
+/* Price row with fav button inline */
+.priceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
 .price {
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--accent);
-  margin: 0 0 0.75rem;
+  margin: 0;
   letter-spacing: -0.5px;
+}
+
+.favButton {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--bg);
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--neu-btn);
+  cursor: pointer;
+  transition: box-shadow 0.25s ease;
+}
+
+.favButton:hover {
+  box-shadow: var(--neu-btn-hover);
+}
+
+.favButton:active {
+  box-shadow: var(--neu-btn-active);
+}
+
+.btnIcon {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.backButton .btnIcon {
+  filter: brightness(0) saturate(100%) invert(45%) sepia(5%) saturate(500%) hue-rotate(180deg);
+}
+
+.favButton .btnIcon {
+  filter: brightness(0) saturate(100%) invert(60%) sepia(5%) saturate(200%) hue-rotate(180deg);
+}
+
+.favActive .btnIcon {
+  filter: brightness(0) saturate(100%) invert(28%) sepia(93%) saturate(5000%) hue-rotate(345deg) brightness(95%) contrast(95%);
 }
 
 .address {
@@ -167,7 +176,10 @@
 }
 
 .notFound .backButton {
+  position: static;
   margin-top: 1.5rem;
+  display: inline-flex;
+  gap: 0.5rem;
 }
 
 @media (max-width: 680px) {

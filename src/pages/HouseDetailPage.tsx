@@ -36,26 +36,12 @@ export function HouseDetailPage() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.container}>
-        <div className={styles.actions}>
-          <Link to="/" className={styles.backButton}>
-            <motion.span whileTap={{ scale: 0.95 }}>
-              <img src={arrowLeft} alt="Back" className={styles.btnIcon} />
-            </motion.span>
-          </Link>
-          <motion.button
-            className={`${styles.favButton} ${favorited ? styles.favActive : ''}`}
-            onClick={() => toggleFavorite(house.id)}
-            whileTap={{ scale: 0.9 }}
-            aria-label={favorited ? 'Remove from favorites' : 'Add to favorites'}
-          >
-            <img
-              src={favorited ? heartFilled : heartOutline}
-              alt=""
-              className={styles.btnIcon}
-            />
-          </motion.button>
-        </div>
+      <div className={styles.layout}>
+        <Link to="/" className={styles.backButton}>
+          <motion.span whileTap={{ scale: 0.95 }}>
+            <img src={arrowLeft} alt="Back" className={styles.btnIcon} />
+          </motion.span>
+        </Link>
 
         <div className={styles.card}>
           <div className={styles.imageWrapper}>
@@ -68,14 +54,26 @@ export function HouseDetailPage() {
           </div>
 
           <div className={styles.details}>
-            <motion.p
-              className={styles.price}
+            <motion.div
+              className={styles.priceRow}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.35 }}
             >
-              ${house.price.toLocaleString()}
-            </motion.p>
+              <p className={styles.price}>${house.price.toLocaleString()}</p>
+              <motion.button
+                className={`${styles.favButton} ${favorited ? styles.favActive : ''}`}
+                onClick={() => toggleFavorite(house.id)}
+                whileTap={{ scale: 0.9 }}
+                aria-label={favorited ? 'Remove from favorites' : 'Add to favorites'}
+              >
+                <img
+                  src={favorited ? heartFilled : heartOutline}
+                  alt=""
+                  className={styles.btnIcon}
+                />
+              </motion.button>
+            </motion.div>
 
             <motion.h1
               className={styles.address}
