@@ -27,7 +27,6 @@ export function useGetHouses() {
       }
       return lastPageParam + 1;
     },
-    // API returns 503 frequently — retry with default exponential backoff
     retry: 10,
     staleTime: 5 * 60 * 1000,
   });

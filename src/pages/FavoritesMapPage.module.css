@@ -39,7 +39,7 @@
   width: 20px;
   height: 20px;
   display: block;
-  filter: brightness(0) saturate(100%) invert(45%) sepia(5%) saturate(500%) hue-rotate(180deg);
+  filter: var(--icon-muted);
 }
 
 .title {

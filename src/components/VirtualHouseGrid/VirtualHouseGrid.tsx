@@ -62,7 +62,6 @@ export function VirtualHouseGrid({
 
   const rowCount = Math.ceil(houses.length / columns);
 
-  // Find the scroll container — the nearest ancestor with overflow: auto
   const getScrollElement = useCallback(() => {
     let el = gridRef.current?.parentElement;
     while (el) {
@@ -84,7 +83,6 @@ export function VirtualHouseGrid({
   const virtualRows = virtualizer.getVirtualItems();
   const lastRow = virtualRows[virtualRows.length - 1];
 
-  // Infinite scroll: fetch when near the last row
   useEffect(() => {
     if (!lastRow) return;
     if (
@@ -142,14 +140,11 @@ export function VirtualHouseGrid({
 
       {isFetchingNextPage && (
         <div
+          className={styles.container}
           style={{
             display: 'grid',
             gridTemplateColumns: `repeat(${columns}, 1fr)`,
             gap: `${gap}px`,
-            padding: '0 2.5rem 2.5rem',
-            maxWidth: 1440,
-            margin: '0 auto',
-            width: '100%',
           }}
         >
           {Array.from({ length: columns }).map((_, i) => (

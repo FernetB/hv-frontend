@@ -1,4 +1,3 @@
-/* ─── Light theme (default) ─── */
 :root,
 [data-theme='light'] {
   --bg: #e4e8f0;
@@ -27,7 +26,6 @@
   --neu-raised: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
   --neu-raised-lg: 6px 6px 16px var(--shadow-dark), -6px -6px 16px var(--shadow-light);
   --neu-raised-hover: 3px 3px 7px var(--shadow-dark-strong), -3px -3px 7px var(--shadow-light-strong);
-  --neu-flat: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
   --neu-pressed: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
   --neu-concave: inset 4px 4px 10px var(--shadow-dark), inset -4px -4px 10px var(--shadow-light);
   --neu-btn: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
@@ -37,10 +35,13 @@
   /* Image inset groove */
   --image-inset: inset 0 2px 4px rgba(0, 0, 0, 0.08);
 
+  --icon-muted: brightness(0) saturate(100%) invert(45%) sepia(5%) saturate(500%) hue-rotate(180deg);
+  --icon-muted-light: brightness(0) saturate(100%) invert(70%) sepia(5%) saturate(200%) hue-rotate(180deg);
+  --icon-red: brightness(0) saturate(100%) invert(28%) sepia(93%) saturate(5000%) hue-rotate(345deg) brightness(95%) contrast(95%);
+
   --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* ─── Dark theme ─── */
 [data-theme='dark'] {
   --bg: #1e1e2e;
   --bg-card: #1e1e2e;
@@ -63,7 +64,6 @@
   --neu-raised: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
   --neu-raised-lg: 6px 6px 16px var(--shadow-dark), -6px -6px 16px var(--shadow-light);
   --neu-raised-hover: 3px 3px 7px var(--shadow-dark-strong), -3px -3px 7px var(--shadow-light-strong);
-  --neu-flat: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
   --neu-pressed: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
   --neu-concave: inset 4px 4px 10px var(--shadow-dark), inset -4px -4px 10px var(--shadow-light);
   --neu-btn: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light);
@@ -73,7 +73,6 @@
   --image-inset: inset 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
-/* ─── Theme transition ─── */
 [data-theme='light'],
 [data-theme='dark'] {
   transition: background-color 0.4s ease, color 0.3s ease;

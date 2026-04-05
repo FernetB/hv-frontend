@@ -38,7 +38,7 @@
   width: 22px;
   height: 22px;
   display: block;
-  filter: brightness(0) saturate(100%) invert(45%) sepia(5%) saturate(500%) hue-rotate(180deg);
+  filter: var(--icon-muted);
 }
 
 .mapBadge {

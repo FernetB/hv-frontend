@@ -45,7 +45,6 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 }
 
-// For React Router's errorElement (renders outside the component tree)
 export function RouteErrorFallback() {
   return (
     <div className={styles.container}>

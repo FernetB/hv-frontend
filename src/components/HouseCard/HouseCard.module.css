@@ -69,12 +69,12 @@
 .heartIcon {
   width: 20px;
   height: 20px;
-  filter: brightness(0) saturate(100%) invert(70%) sepia(5%) saturate(200%) hue-rotate(180deg);
+  filter: var(--icon-muted-light);
   transition: filter 0.2s ease;
 }
 
 .heartActive .heartIcon {
-  filter: brightness(0) saturate(100%) invert(28%) sepia(93%) saturate(5000%) hue-rotate(345deg) brightness(95%) contrast(95%);
+  filter: var(--icon-red);
 }
 
 .address {

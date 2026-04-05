@@ -1,9 +1,9 @@
 import { useGetHouses } from '../hooks/api/useGetHouses';
 import { Header } from '../components/Header/Header';
-import { HouseGrid } from '../components/HouseGrid/HouseGrid';
 import { HouseCardSkeleton } from '../components/HouseCardSkeleton/HouseCardSkeleton';
 import { VirtualHouseGrid } from '../components/VirtualHouseGrid/VirtualHouseGrid';
 import { ErrorMessage } from '../components/ErrorMessage/ErrorMessage';
+import gridStyles from '../components/VirtualHouseGrid/VirtualHouseGrid.module.css';
 
 export function HouseListPage() {
   const {
@@ -24,11 +24,11 @@ export function HouseListPage() {
       <Header />
       <main>
         {isLoading ? (
-          <HouseGrid>
+          <div className={gridStyles.skeletonGrid}>
             {Array.from({ length: 12 }).map((_, i) => (
               <HouseCardSkeleton key={i} />
             ))}
-          </HouseGrid>
+          </div>
         ) : isError && houses.length === 0 ? (
           <ErrorMessage
             message={error.message}

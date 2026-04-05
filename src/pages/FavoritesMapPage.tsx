@@ -38,10 +38,7 @@ function saveGeoCache(cache: Record<string, { lat: number; lng: number }>) {
   localStorage.setItem(GEOCODE_CACHE_KEY, JSON.stringify(cache));
 }
 
-// The API addresses have fake street numbers but real city/state/zip.
-// Try the full address first, then fall back to just city + state + zip.
 function extractCityStateZip(address: string): string | null {
-  // Pattern: "... City, ST XXXXX"
   const match = address.match(/([A-Za-z\s]+,\s*[A-Z]{2}\s+\d{5})$/);
   return match ? match[1].trim() : null;
 }
@@ -70,8 +67,6 @@ async function geocodeAddress(
 ): Promise<{ lat: number; lng: number } | null> {
   if (cache[address]) return cache[address];
 
-  // The API uses fake street names but real city/state/zip.
-  // Extract just the city+state+zip for geocoding.
   const cityState = extractCityStateZip(address);
   const query = cityState ?? address;
   const result = await tryGeocode(query);
@@ -126,7 +121,6 @@ export function FavoritesMapPage() {
           results.push({ ...house, ...coords });
           setGeocoded([...results]);
         }
-        // Respect Nominatim rate limit: 1 req/sec (skip delay for cached)
         if (!cache[house.address] && i < favoriteHouses.length - 1) {
           await new Promise((r) => setTimeout(r, 1100));
         }
