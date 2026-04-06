@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useFavorites, type FavoriteHouse } from '../providers/FavoritesProvider';
-import arrowLeft from '../assets/icons/arrow-left.svg';
+import { useFavorites } from '../../providers/FavoritesProvider';
+import { FlyToFirst } from './FlyToFirst';
+import arrowLeft from '../../assets/icons/arrow-left.svg';
+import mapPinUrl from '../../assets/icons/map-pin.svg';
 import styles from './FavoritesMapPage.module.css';
-
-import mapPinUrl from '../assets/icons/map-pin.svg';
 
 const pinIcon = new L.Icon({
   iconUrl: mapPinUrl,
@@ -43,21 +43,6 @@ async function tryGeocode(query: string): Promise<{ lat: number; lng: number } |
 async function geocodeAddress(address: string): Promise<{ lat: number; lng: number } | null> {
   const cityState = extractCityStateZip(address);
   return tryGeocode(cityState ?? address);
-}
-
-function FlyToFirst({ houses }: { houses: FavoriteHouse[] }) {
-  const map = useMap();
-  const hasFlown = useRef(false);
-
-  useEffect(() => {
-    const first = houses.find((h) => h.lat != null && h.lng != null);
-    if (first && !hasFlown.current) {
-      hasFlown.current = true;
-      map.flyTo([first.lat!, first.lng!], 10, { duration: 1.2 });
-    }
-  }, [houses, map]);
-
-  return null;
 }
 
 export function FavoritesMapPage() {

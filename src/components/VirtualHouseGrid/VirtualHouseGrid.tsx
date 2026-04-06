@@ -129,7 +129,7 @@ export function VirtualHouseGrid({
                     key={house.id}
                     house={house}
                     isFavorited={isFavorite(house.id)}
-                    onToggleFavorite={() => toggleFavorite(house.id)}
+                    onToggleFavorite={() => toggleFavorite(house)}
                   />
                 ))}
               </div>

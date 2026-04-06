@@ -49,7 +49,7 @@
   height: 18px;
   padding: 0 5px;
   border-radius: 9px;
-  background: #e74c3c;
+  background: var(--badge-red);
   color: #fff;
   font-size: 0.65rem;
   font-weight: 700;

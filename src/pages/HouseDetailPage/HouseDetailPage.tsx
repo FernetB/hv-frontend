@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useFavorites } from '../providers/FavoritesProvider';
-import type { House } from '../hooks/api/types';
-import arrowLeft from '../assets/icons/arrow-left.svg';
-import heartOutline from '../assets/icons/heart-outline.svg';
-import heartFilled from '../assets/icons/heart-filled.svg';
+import { useFavorites } from '../../providers/FavoritesProvider';
+import type { House } from '../../hooks/api/types';
+import arrowLeft from '../../assets/icons/arrow-left.svg';
+import heartOutline from '../../assets/icons/heart-outline.svg';
+import heartFilled from '../../assets/icons/heart-filled.svg';
 import styles from './HouseDetailPage.module.css';
 
 const PLACEHOLDER =
@@ -63,7 +63,7 @@ export function HouseDetailPage() {
               <p className={styles.price}>${house.price.toLocaleString()}</p>
               <motion.button
                 className={`${styles.favButton} ${favorited ? styles.favActive : ''}`}
-                onClick={() => toggleFavorite(house.id)}
+                onClick={() => toggleFavorite(house)}
                 whileTap={{ scale: 0.9 }}
                 aria-label={favorited ? 'Remove from favorites' : 'Add to favorites'}
               >

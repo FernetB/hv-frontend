@@ -35,6 +35,8 @@
   /* Image inset groove */
   --image-inset: inset 0 2px 4px rgba(0, 0, 0, 0.08);
 
+  --badge-red: #e74c3c;
+
   --icon-muted: brightness(0) saturate(100%) invert(45%) sepia(5%) saturate(500%) hue-rotate(180deg);
   --icon-muted-light: brightness(0) saturate(100%) invert(70%) sepia(5%) saturate(200%) hue-rotate(180deg);
   --icon-red: brightness(0) saturate(100%) invert(28%) sepia(93%) saturate(5000%) hue-rotate(345deg) brightness(95%) contrast(95%);
