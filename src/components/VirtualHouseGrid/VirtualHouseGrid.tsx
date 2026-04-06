@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { HouseCard } from '../HouseCard/HouseCard';
-import { HouseCardSkeleton } from '../HouseCardSkeleton/HouseCardSkeleton';
+import { HouseCardSkeleton } from '../HouseCard/HouseCardSkeleton';
 import { useFavorites } from '../../providers/FavoritesProvider';
 import type { House } from '../../hooks/api/useGetHouses/types';
 import styles from './VirtualHouseGrid.module.css';

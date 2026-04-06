@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useGetHouses } from '../../hooks/api/useGetHouses/useGetHouses';
 import { useFavorites } from '../../providers/FavoritesProvider';
 import { Header } from '../../components/Header/Header';
-import { HouseCardSkeleton } from '../../components/HouseCardSkeleton/HouseCardSkeleton';
+import { HouseCardSkeleton } from '../../components/HouseCard/HouseCardSkeleton';
 import { VirtualHouseGrid } from '../../components/VirtualHouseGrid/VirtualHouseGrid';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 import gridStyles from '../../components/VirtualHouseGrid/VirtualHouseGrid.module.css';

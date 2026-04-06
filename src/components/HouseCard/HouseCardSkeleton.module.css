@@ -1,9 +1,9 @@
 .skeleton {
-  composes: card from '../shared/CardShell.module.css';
+  composes: card from './HouseCard.module.css';
 }
 
 .imagePlaceholder {
-  composes: imageWrapper from '../shared/CardShell.module.css';
+  composes: imageWrapper from './HouseCard.module.css';
   background: linear-gradient(
     90deg,
     var(--bg) 0%,
@@ -15,7 +15,7 @@
 }
 
 .content {
-  composes: content from '../shared/CardShell.module.css';
+  composes: content from './HouseCard.module.css';
   gap: 0.65rem;
 }
 

@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useApiClient } from '../../providers/ApiProvider';
+import { useApiClient } from '../../../providers/ApiProvider';
 import type { HousesResponse } from './types';
 
 const PER_PAGE = 12;
