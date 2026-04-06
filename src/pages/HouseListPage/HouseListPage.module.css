@@ -1,0 +1,60 @@
+.filterBar {
+  display: flex;
+  justify-content: center;
+  padding: 0 2.5rem 1.5rem;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  border-radius: 50px;
+  box-shadow: var(--neu-pressed);
+  padding: 6px;
+  cursor: pointer;
+  min-width: 200px;
+}
+
+.toggleThumb {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: calc(50% - 6px);
+  height: calc(100% - 12px);
+  border-radius: 50px;
+  background: var(--bg);
+  box-shadow: var(--neu-btn);
+}
+
+.toggleLabel {
+  position: relative;
+  z-index: 1;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font);
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+  user-select: none;
+}
+
+.toggleLabelActive {
+  color: var(--accent);
+}
+
+.emptyMessage {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+@media (max-width: 680px) {
+  .filterBar {
+    padding: 0 1.25rem 1.25rem;
+  }
+}

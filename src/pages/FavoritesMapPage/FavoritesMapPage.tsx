@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -49,24 +49,28 @@ export function FavoritesMapPage() {
   const { favorites, updateCoords } = useFavorites();
   const [geocoding, setGeocoding] = useState(false);
   const navigate = useNavigate();
-  const abortRef = useRef(false);
 
   const favoriteHouses = [...favorites.values()];
   const geocodedHouses = favoriteHouses.filter((h) => h.lat != null && h.lng != null);
 
   useEffect(() => {
     const needsGeocoding = favoriteHouses.filter((h) => h.lat == null);
-    if (needsGeocoding.length === 0) return;
+    if (needsGeocoding.length === 0) {
+      setGeocoding(false);
+      return;
+    }
 
-    abortRef.current = false;
+    let aborted = false;
     setGeocoding(true);
     const houses = [...needsGeocoding];
 
     (async () => {
       for (let i = 0; i < houses.length; i++) {
-        if (abortRef.current) return;
+        if (aborted) return;
         const house = houses[i];
+        if (!house.address) continue;
         const coords = await geocodeAddress(house.address);
+        if (aborted) return;
         if (coords) {
           updateCoords(house.id, coords.lat, coords.lng);
         }
@@ -74,10 +78,10 @@ export function FavoritesMapPage() {
           await new Promise((r) => setTimeout(r, 1100));
         }
       }
-      setGeocoding(false);
+      if (!aborted) setGeocoding(false);
     })();
 
-    return () => { abortRef.current = true; };
+    return () => { aborted = true; };
   }, [favorites.size]);
 
   return (
@@ -118,11 +122,11 @@ export function FavoritesMapPage() {
                 <Popup>
                   <div
                     className={styles.popup}
-                    onClick={() => navigate(`/house/${house.id}`, { state: { house } })}
+                    onClick={() => navigate(`/favorites/house/${house.id}`, { state: { house } })}
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
-                        navigate(`/house/${house.id}`, { state: { house } });
+                        navigate(`/favorites/house/${house.id}`, { state: { house } });
                       }
                     }}
                     role="button"

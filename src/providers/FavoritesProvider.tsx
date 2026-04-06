@@ -29,7 +29,8 @@ function load(): Map<number, FavoriteHouse> {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const arr = JSON.parse(raw) as FavoriteHouse[];
-      return new Map(arr.map((h) => [h.id, h]));
+      const valid = arr.filter((h) => h.id != null && h.address);
+      return new Map(valid.map((h) => [h.id, h]));
     }
   } catch {}
   return new Map();

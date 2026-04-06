@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { motion } from 'framer-motion';
 import { HouseCard } from '../HouseCard/HouseCard';
 import { HouseCardSkeleton } from '../HouseCardSkeleton/HouseCardSkeleton';
 import { useFavorites } from '../../providers/FavoritesProvider';
@@ -153,16 +152,6 @@ export function VirtualHouseGrid({
         </div>
       )}
 
-      {!hasNextPage && !isFetchingNextPage && houses.length > 0 && (
-        <motion.p
-          className={styles.endMessage}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          You've seen all listings
-        </motion.p>
-      )}
-    </>
+</>
   );
 }
