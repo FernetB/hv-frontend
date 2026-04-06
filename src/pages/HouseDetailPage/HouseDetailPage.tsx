@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { HouseDetail } from '../../components/HouseDetail/HouseDetail';
-import type { House } from '../../hooks/api/types';
+import type { House } from '../../hooks/api/useGetHouses/types';
 import arrowLeft from '../../assets/icons/arrow-left.svg';
 import styles from './HouseDetailPage.module.css';
 

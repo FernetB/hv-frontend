@@ -3,7 +3,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import { HouseCard } from '../HouseCard/HouseCard';
 import { HouseCardSkeleton } from '../HouseCardSkeleton/HouseCardSkeleton';
 import { useFavorites } from '../../providers/FavoritesProvider';
-import type { House } from '../../hooks/api/types';
+import type { House } from '../../hooks/api/useGetHouses/types';
 import styles from './VirtualHouseGrid.module.css';
 
 const MIN_COL_WIDTH = 300;

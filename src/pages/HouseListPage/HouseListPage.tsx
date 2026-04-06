@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useGetHouses } from '../../hooks/api/useGetHouses';
+import { useGetHouses } from '../../hooks/api/useGetHouses/useGetHouses';
 import { useFavorites } from '../../providers/FavoritesProvider';
 import { Header } from '../../components/Header/Header';
 import { HouseCardSkeleton } from '../../components/HouseCardSkeleton/HouseCardSkeleton';

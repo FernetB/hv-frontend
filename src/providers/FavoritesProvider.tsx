@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import type { House } from '../hooks/api/types';
+import type { House } from '../hooks/api/useGetHouses/types';
 
 export interface FavoriteHouse extends House {
   lat?: number;

@@ -1,7 +1,7 @@
 import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import type { House } from '../../hooks/api/types';
+import type { House } from '../../hooks/api/useGetHouses/types';
 import heartOutline from '../../assets/icons/heart-outline.svg';
 import heartFilled from '../../assets/icons/heart-filled.svg';
 import styles from './HouseCard.module.css';

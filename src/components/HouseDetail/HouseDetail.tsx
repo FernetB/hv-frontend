@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useFavorites } from '../../providers/FavoritesProvider';
-import type { House } from '../../hooks/api/types';
+import type { House } from '../../hooks/api/useGetHouses/types';
 import arrowLeft from '../../assets/icons/arrow-left.svg';
 import heartOutline from '../../assets/icons/heart-outline.svg';
 import heartFilled from '../../assets/icons/heart-filled.svg';
