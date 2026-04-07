@@ -3,14 +3,14 @@ import { HouseListPage } from './pages/HouseListPage/HouseListPage';
 import { HouseDetailModalPage } from './pages/HouseDetailPage/HouseDetailModalPage';
 import { HouseDetailPage } from './pages/HouseDetailPage/HouseDetailPage';
 import { FavoritesMapPage } from './pages/FavoritesMapPage/FavoritesMapPage';
-import { RouteErrorFallback } from './components/ErrorBoundary/ErrorBoundary';
+import { ErrorScreen } from './components/ErrorBoundary/ErrorBoundary';
 
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || undefined;
 
 const router = createBrowserRouter(
   [
     {
-      errorElement: <RouteErrorFallback />,
+      errorElement: <ErrorScreen />,
       children: [
         {
           path: '/',
